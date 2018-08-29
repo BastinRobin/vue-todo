@@ -25,7 +25,7 @@
 	<div id="app">
 		<h2>Simple Todo List</h2>
 		<!-- Insert new task -->
-		<input type="text" v-model="task">
+		<input type="text" v-model="task" v-on:keyup.enter="add()">
 		<button @click="add()">Add</button>
 
 		<p v-if="task" class="preview">{{ task }}</p>
@@ -34,7 +34,7 @@
 		<ul>
 		    <li v-for="(todo, index)  in todos">
 		      {{ todo.text }}
-		      <button @click="remove(index)">delete</button>
+		      <button @click="remove(todo)">delete</button>
 		    </li>
 		</ul>
 	</div>
@@ -85,8 +85,17 @@
 	  		
 	  	},
 
-	  	remove: function(index) {
-	  		Vue.delete(this.todos, index);
+	  	remove: function(todo) {
+
+		  	axios
+	  	      .get('http://localhost:8888/vue-todo/process.php?delete_id='+ todo.id)
+	  	      .then(response => {
+	  	     	
+	  	     	// Delete the selected task using splice method from todos array
+	  	      	this.todos.splice(this.todos.indexOf(todo), 1);
+
+	  	      });
+	  		
 	  	}
 
 	  }
