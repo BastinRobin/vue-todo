@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Simple Ecommerce</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+</head>
+<style type="text/css">
+	#app { margin-top:100px; margin-left:100px; font-family: arial; }
+	.product { display: inline-block; padding:10px; border: 1px solid orange; margin-bottom:4px; width: 250px;}
+	.product span { font-weight: bold; font-size: 24px; color: #009688; }
+	button { background: orange; color: #fff; cursor: pointer; }
+	.clear { clear:both;}
+	.add_product { float: left; margin-top: 100px; border: 1px solid black; width: 250px; padding:5px;}
+	.cart { float: right; margin-top: 100px; border: 4px dashed orange; width: 250px; padding:5px; margin-right:240px;}
+
+
+</style>
+<body>
+	<!-- ALL Vuejs directive works only inside this container as the el: '#app'  -->
+	<div id="app">
+		<h2>MyStore</h2>
+		<div class="product" v-for="(item, index) in items">
+			<h3>{{ item.name }}</h3>
+			<p>{{ item.description }}</p>
+			<span>${{ item.price }}</span>
+			<button @click="add_to_cart(item)">Add to cart</button>
+		</div>
+
+
+		<div class="clear">
+			<div class="add_product">
+				<h3>Add Product</h3>
+				<p><input type="text" placeholder="Product Title" v-model="product.name"></p>
+				<p><textarea placeholder="Product Description" v-model="product.description"></textarea></p>
+				<p><input type="text" placeholder="price" v-model="product.price"></p>
+				<button @click="add_product(product)">Add</button>
+			</div>
+
+			<div class="cart">
+				<h3>My Cart | {{ cart.length }}</h3>
+				<ul>
+					<li v-for="(item, index) in cart">
+						{{ item.name }} - <b>${{ item.price }}</b>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+
+	let items = [
+		{
+			id: 1,
+			name: 'Pressure Cooker',
+			description: 'product description',
+			price: 20.5
+		},
+		{
+			id: 2,
+			name: 'T Shirt',
+			description: 'product description',
+			price: 100
+		},
+		{
+			id: 3,
+			name: 'Denim Jeans',
+			description: 'product description',
+			price: 200.5
+		},
+		{
+			id: 4,
+			name: 'Macbook Air',
+			description: 'product description',
+			price: 40.5
+		},
+		{
+			id: 5,
+			name: 'MacBook Pro',
+			description: 'product description',
+			price: 250.5
+		},
+		{
+			id: 6,
+			name: 'Nokia',
+			description: 'product description',
+			price: 210.5
+		},
+		{
+			id: 7,
+			name: 'Motorola',
+			description: 'product description',
+			price: 10.5
+		},
+		{
+			id: 8,
+			name: 'Flask',
+			description: 'product description',
+			price: 20.5
+		},
+
+	];
+
+	
+	var app = new Vue({
+
+	  el: '#app',
+	  data: {
+	  	items: items,
+	  	product: {},
+	  	cart: []
+	  },
+	  methods: {
+
+	  	add_product: function(product) {
+	  		this.items.unshift(product);
+	  		this.product = {};
+
+	  	},
+
+	  	add_to_cart: function(item) {
+	  		this.cart.unshift(item);
+	  	}
+
+	  }
+
+	});
+</script>
+</html>

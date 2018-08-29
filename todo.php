@@ -91,7 +91,7 @@
 	  	      .get('http://localhost:8888/vue-todo/process.php?delete_id='+ todo.id)
 	  	      .then(response => {
 	  	     	
-	  	     	// Delete the selected task using splice method from todos array
+	  	     	// Delete the selected task using splice method from todos
 	  	      	this.todos.splice(this.todos.indexOf(todo), 1);
 
 	  	      });
